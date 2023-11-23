@@ -13,8 +13,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@xuyanfeng/cc-ui": "file:.yalc/@xuyanfeng/cc-ui",
+    "axios": "^1.6.2",
     "pinia": "^2.1.7",
-    "vue": "^3.3.4",
+    "vue": "3.2.26",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {

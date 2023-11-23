@@ -1,85 +1,69 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+<template>
+  <div class="app">
+    <i v-if="false" class="icon iconfont icon_folder"></i>
+    <CCTable :data="data" :columns="columns"></CCTable>
+  </div>
+</template>
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import type { TableColumn, TableData } from '@xuyanfeng/cc-ui/types/cc-table/const'
+import ccui from '@xuyanfeng/cc-ui'
+import axios from 'axios'
+const { CCTable } = ccui.components
+
+interface LogData {
+  id: number
+  name: string
+  createDate: string
+  updateDate: string
+}
+export default defineComponent({
+  name: 'app',
+  components: {
+    CCTable
+  },
+  setup(props, ctx) {
+    const columns = ref<TableColumn[]>([
+      {
+        title: '日期',
+        key: 'time'
+      },
+      {
+        title: '日志',
+        key: 'log'
+      }
+    ])
+    const data = ref<TableData[]>([])
+
+    // 获取服务器上的所有日志
+    const use = false
+    if (use) {
+      const url = 'http://localhost:3000/log/get-all-log'
+      axios.post(url).then((res) => {
+        console.log(res)
+        for (let i = 0; i < res.data.length; i++) {
+          const item: LogData = res.data[i]
+          data.value.push({ time: item.createDate, log: item.name })
+        }
+      })
+    } else {
+      setTimeout(() => {
+        console.log('add')
+        // data.value.push({ time: '1', log: '1' })
+      }, 1000)
+    }
+
+    return {
+      data,
+      columns
+    }
+  }
+})
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-</template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+<style scoped lang="less">
+.app {
+  display: flex;
+  flex-direction: column;
 }
 </style>
