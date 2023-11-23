@@ -42,7 +42,8 @@ export default defineComponent({
     // 获取服务器上的所有日志
     const use = true;
     if (use) {
-      const url = "http://localhost:3000/log/get-all-log";
+      //   const url = "http://localhost:3000/log/get-all-log";
+      const url = "https://data-box.onrender.com/log/get-all-log";
       axios.post(url).then((res) => {
         console.log(res);
         for (let i = 0; i < res.data.length; i++) {
