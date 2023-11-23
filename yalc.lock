@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@xuyanfeng/cc-ui": {
+      "signature": "94d3c348e5ecc0704667def171a31843",
+      "file": true
+    }
+  }
+}
