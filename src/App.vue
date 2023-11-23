@@ -30,7 +30,7 @@ export default defineComponent({
       {
         title: "日期",
         key: "time",
-        width: 200,
+        width: 500,
       },
       {
         title: "日志",

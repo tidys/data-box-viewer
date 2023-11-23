@@ -24,26 +24,39 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
-        env:
-            SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
+      - name: install
+        run: npm install
+      - name: buld
+        run: npm run buld  
+      - name: deploy-to-pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-            # 注意替换为你的 GitHub 源仓库地址
-            source-repo: "git@github.com:tidys/bmfont-online-export.git"
-            destination-repo: "git@gitee.com:tidys/bmfont-online-export.git"
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          keep_files: false
 
-      - name: Gitee Pages Action
-      # uses: yanglbme/gitee-pages-action@a813811f52ed4f53010702a528b72053bd04685f
-        uses: yanglbme/gitee-pages-action@main
-        with:
-          # The Gitee username, like yanglbme
-          gitee-username: ${{ secrets.GITEE_REPO }} # optional
-          # The Gitee password
-          gitee-password: ${{ secrets.GITEE_PWD }} # optional
-          # The Gitee repository, like doocs/leetcode
-          gitee-repo:  tidys/bmfont-online-export
-          # Which branch to build
-          branch: main # optional, default is master
-          # Use force https or not
-          https: false # optional, default is true
+    #   - name: Sync to Gitee
+    #     uses: wearerequired/git-mirror-action@master
+    #     env:
+    #         SSH_PRIVATE_KEY: ${{ secrets.GITEE_RSA_PRIVATE_KEY }}
+    #     with:
+    #         # 注意替换为你的 GitHub 源仓库地址
+    #         source-repo: "git@github.com:tidys/data-box-viewer.git"
+    #         destination-repo: "git@gitee.com:tidys/data-box-viewer.git"
+
+    #   - name: Gitee Pages Action
+    #   # uses: yanglbme/gitee-pages-action@a813811f52ed4f53010702a528b72053bd04685f
+    #     uses: yanglbme/gitee-pages-action@main
+    #     with:
+    #       # The Gitee username, like yanglbme
+    #       gitee-username: ${{ secrets.GITEE_REPO }} # optional
+    #       # The Gitee password
+    #       gitee-password: ${{ secrets.GITEE_PWD }} # optional
+    #       directory: ""
+    #       # The Gitee repository, like doocs/leetcode
+    #       gitee-repo:  tidys/data-box-viewer
+    #       # Which branch to build
+    #       branch: main # optional, default is master
+    #       # Use force https or not
+    #       https: false # optional, default is true
