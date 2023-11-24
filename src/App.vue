@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <i v-if="false" class="icon iconfont icon_folder"></i>
-    <CCTable :data="data" :columns="columns"></CCTable>
+    <CCTable class="my-data" :data="data" :columns="columns"></CCTable>
   </div>
 </template>
 <script lang="ts">
@@ -30,7 +30,7 @@ export default defineComponent({
       {
         title: "日期",
         key: "time",
-        width: 500,
+        width: 250,
       },
       {
         title: "日志",
@@ -68,7 +68,17 @@ export default defineComponent({
 
 <style scoped lang="less">
 .app {
+  padding: 1px;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  box-sizing: border-box;
+  .my-data {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
