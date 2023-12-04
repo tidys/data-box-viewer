@@ -35,6 +35,7 @@ export default defineComponent({
       {
         title: "日志",
         key: "log",
+        breakChar: true,
       },
     ]);
     const data = ref<TableData[]>([]);
